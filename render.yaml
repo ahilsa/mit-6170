@@ -1,0 +1,18 @@
+databases:
+  - name: mit-6170
+    databaseName: mit-6170
+    user: mit-6170
+
+services:
+  - type: web
+    name: mit-6170
+    env: ruby
+    buildCommand: "./bin/render-build.sh"
+    startCommand: "bundle exec puma -C config/puma.rb"
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: mit-6170
+          property: connectionString
+      - key: RAILS_MASTER_KEY
+        sync: false
